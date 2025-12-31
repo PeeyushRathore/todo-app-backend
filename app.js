@@ -11,17 +11,23 @@ app.use(
     origin: [
       "https://todo-app-3ssw.vercel.app",
       "https://todo-app-bay-nine-21.vercel.app",
+      /\.vercel\.app$/, // Allow all vercel.app subdomains
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "content-type", "authorization"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "content-type",
+      "authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
+    exposedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-    preflightContinue: false,
     optionsSuccessStatus: 204,
   })
 );
-
-// Handle preflight requests explicitly
-app.options("*", cors());
 
 app.use(express.json());
 
